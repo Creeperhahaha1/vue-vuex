@@ -1,49 +1,23 @@
 <template>
-<<<<<<< HEAD
   <div>
-    {{ msg }}
+    {{ msg1 }}<br/>
+    {{ msg2 }}
   </div>
 </template>
 
 <script>
-import { useStore } from 'vuex' //預設儲存庫
+import { inject } from 'vue' 
 
 export default {
   setup() {
-    //引用預設儲存庫 "import store from './store/test.js'"
-    const s = useStore() 
-    const msg = s.state.message //把儲存庫資料傳給變數
+    const s1 = inject('s1')
+    const s2 = inject('s2') 
+    const msg1 = s1.state.message 
+    const msg2 = s2.stage.message
 
     return {
-      msg
+      msg1,msg2
     }
   }
 }
 </script>
-=======
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
->>>>>>> a681177a742c74cfec4bbf108a817a544bcdb9d1
