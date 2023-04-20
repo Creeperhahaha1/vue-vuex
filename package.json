@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+<<<<<<< HEAD
     "vue": "^3.2.13",
     "vuex": "^4.1.0"
+=======
+    "vue": "^3.2.13"
+>>>>>>> a681177a742c74cfec4bbf108a817a544bcdb9d1
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
