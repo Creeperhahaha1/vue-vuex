@@ -3,10 +3,15 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 export default {
-  methods: {
-    add() { //連接儲存庫的對應函式 add -> increase
-      this.$store.commit('increase')
+  setup(){
+    const store = useStore();
+    const add = (()=>{
+      store.commit('increase');
+    })
+    return{
+      add
     }
   }
 }

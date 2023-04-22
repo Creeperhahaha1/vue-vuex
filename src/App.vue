@@ -6,17 +6,23 @@
 </template>
 
 <script>
-
+import {computed} from 'vue'
+import { useStore } from 'vuex';
 import BtnAdd from './components/BtnAdd.vue'
 
 export default {
-  computed: { 
-    getCount() { //用$store 存取data.js資料
-      return this.$store.state.num
-    }
-  },
   components: {
-    BtnAdd 
+      BtnAdd 
+    },
+  setup(){
+    const store = useStore();
+    const getCount = computed(()=>{
+      return store.state.num
+    })
+
+    return{
+      getCount
+    }
   }
 }
 </script>
