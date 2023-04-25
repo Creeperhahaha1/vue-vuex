@@ -1,40 +1,32 @@
 <template>
-  <div>
-    <p>Total price: {{ totalPrice }}</p>
-    <p>Total size: {{ totalSize }}</p>
-    <p>Selected building item:</p>
-    <SelectBar/> <!--下拉式清單-->
-    <div v-if="selectedItemId"> <!--顯示選擇的元素-->
-      <p>Name: {{ selectedItemId.id }}</p>
-      <p>Price: {{ selectedItemId.price }}</p>
-      <p>Size: {{ selectedItemId.size }}</p>
-    </div>
+  <div> <!--印出名字-->
+    <p v-for="user in users" :key="user.login.uuid">
+      {{ user.name.first }} {{ user.name.last }}
+    </p>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-import SelectBar from './components/selectBar.vue';
+import { watchEffect, onMounted ,ref } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
-  components:{
-    SelectBar,
-  },
   setup() {
-    const store = useStore();
-    //getter計算後傳回新的數據
-    const totalPrice = computed(() => store.getters.TotalPrice);
-    const totalSize = computed(() => store.getters.TotalSize);
-    //傳遞選擇的物件id屬性 ?表示忽略屬性為null時的 error
-    const selectedItemId = computed(() => 
-    store.state.selectedItem);
+    const store = useStore()
+    const users = ref([])
 
-    return {
-      totalPrice,
-      totalSize,
-      selectedItemId,
-    };
-  },
-};
+    watchEffect(() => { //監聽store裡的資料變化
+      const newUsers = store.state.users
+      if (newUsers.length) { //有資料就傳給 響應變量users
+        users.value = newUsers
+      }
+    })
+
+    onMounted( () => { //觸發action
+      store.dispatch('fetchUsers')
+    }) 
+
+    return { users }
+  }
+}
 </script>
